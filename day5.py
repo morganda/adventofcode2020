@@ -4,36 +4,6 @@ import math
 
 filename = 'inputs/input5.txt'
 
-def get_seat_id(code):
-    low = 0
-    high = 127
-    i = 0
-    while i < 7:
-        mid = (low + high) / 2
-        if code[i] == 'F':
-            high = math.floor(mid)
-        else:
-            low = math.ceil(mid)
-        i += 1
-
-    row = low
-
-    low = 0
-    high = 7
-    while i < 10:
-        mid = (low + high) / 2
-        if code[i] == 'L':
-            high = math.floor(mid)
-        else:
-            low = math.ceil(mid)
-        i += 1
-
-    col = low
-
-    sid = row * 8 + col
-    #print(f'row: {row}, col: {col}, sid: {sid}')
-    return sid
-
 
 def init_seat_map():
     seat_map = dict()
@@ -48,13 +18,26 @@ def init_seat_map():
     return seat_map
 
 
+def get_seat_id_fast(code):
+    row_code = code[:7]
+    col_code = code[7:]
+
+    row_bin = ''.join(['0' if i == 'F' else '1' for i in row_code])
+    row = int(row_bin, 2)
+    col_bin = ''.join(['0' if i == 'L' else '1' for i in col_code])
+    col = int(col_bin, 2)
+
+    sid = row * 8 + col
+    return sid
+
+
 def get_largest_sid(codes):
     largest_sid = 0
     seat_map = init_seat_map()
     for code in codes:
-        seat = get_seat_id(code)
+        seat = get_seat_id_fast(code)
         del seat_map[seat]
-        largest_sid = max(largest_sid, get_seat_id(code))
+        largest_sid = max(largest_sid, seat)
     return largest_sid, seat_map
 
 
