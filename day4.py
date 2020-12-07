@@ -84,7 +84,7 @@ def is_valid_passport_p2(passport):
 if __name__ == '__main__':
     with open(filename, 'r') as fin:
         lines = fin.read().split('\n')
-    
+
     valid_passports = 0
     valid_passports_p2 = 0
     passport = dict()
