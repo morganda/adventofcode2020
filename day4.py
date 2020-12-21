@@ -100,5 +100,6 @@ if __name__ == '__main__':
             if is_valid_passport_p2(passport):
                 valid_passports_p2 += 1
             passport = dict()
+
     print(f'Valid Passports: {valid_passports}')
     print(f'Valid Passports Part 2: {valid_passports_p2}')
